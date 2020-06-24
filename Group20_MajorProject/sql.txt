@@ -1,0 +1,19 @@
+mysql -uroot -p
+
+
+ CREATE DATABASE MajorProject;
+show databases;
+use majorproject;
+
+create table college(college_id varchar(20) NOT NULL, College_name varchar(50) NOT NULL, college_address varchar(50), college_state varchar(20), PRIMARY KEY(college_id));
+create table Alumnus(roll_number varchar(20), college_id varchar(20), passing_year int, degree varchar(50), joining_year int, PRIMARY KEY(roll_number, college_id, passing_year), FOREIGN KEY(college_id) REFERENCES college(college_id));
+create table year(year int NOT NULL, PRIMARY KEY(year));
+
+create table career_progression(cp_id int NOT NULL AUTO_INCREMENT,roll_number varchar(20), college_id varchar(20), passing_year int, overall_satisfaction varchar(50), PRIMARY KEY(cp_id), FOREIGN KEY(roll_number,college_id,passing_year) REFERENCES Alumnus(roll_number,college_id,passing_year));
+create table quality_education(qe_id int NOT NULL AUTO_INCREMENT,roll_number varchar(20), college_id varchar(20), passing_year int, satisfaction varchar(50), PRIMARY KEY(qe_id), FOREIGN KEY(roll_number,college_id,passing_year) REFERENCES Alumnus(roll_number,college_id,passing_year));
+ create table placement(pl_id int NOT NULL AUTO_INCREMENT,roll_number varchar(20), college_id varchar(20), passing_year int, package varchar(20), profile varchar(50), PRIMARY KEY(pl_id), FOREIGN KEY(roll_number,college_id,passing_year) REFERENCES Alumnus(roll_number,college_id,passing_year));
+ alter table career_progression add CHECK(overall_satisfaction>0 and overall_satisfaction <6);
+alter table career_progression modify overall_satisfaction int;
+
+insert into students(roll_number,college_id,passing_year,student_name,degree) values('MT19072','c2',2016,'Pragya','Btech');
+ update students set student_name='swati' where degree="Btech";
